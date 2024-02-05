@@ -1,0 +1,331 @@
+﻿USE [master]
+GO
+/****** Object:  Database [DemoExams]    Script Date: 05.02.2024 17:56:37 ******/
+CREATE DATABASE [DemoExams]
+GO
+USE [DemoExams]
+GO
+/****** Object:  Table [dbo].[Departments]    Script Date: 05.02.2024 17:56:37 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[Departments](
+	[DepartmentID] [int] IDENTITY(1,1) NOT NULL,
+	[Name] [nvarchar](255) NOT NULL,
+	[Description] [nvarchar](255) NOT NULL,
+PRIMARY KEY CLUSTERED 
+(
+	[DepartmentID] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[Employees]    Script Date: 05.02.2024 17:56:37 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[Employees](
+	[EmployeeID] [int] IDENTITY(1,1) NOT NULL,
+	[FullName] [nvarchar](255) NOT NULL,
+	[DepartmentID] [int] NULL,
+	[RoleID] [int] NULL,
+	[Passport] [nvarchar](255) NULL,
+	[Phone] [nvarchar](255) NULL,
+	[Password] [nvarchar](255) NULL,
+	[Login] [nvarchar](255) NULL,
+PRIMARY KEY CLUSTERED 
+(
+	[EmployeeID] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[Orders]    Script Date: 05.02.2024 17:56:37 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[Orders](
+	[OrderID] [int] IDENTITY(1,1) NOT NULL,
+	[Description] [nvarchar](max) NOT NULL,
+	[PlatformID] [int] NULL,
+	[Deadline] [varchar](10) NULL,
+	[DateOfRequest] [varchar](10) NULL,
+PRIMARY KEY CLUSTERED 
+(
+	[OrderID] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[Platforms]    Script Date: 05.02.2024 17:56:37 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[Platforms](
+	[PlatformID] [int] IDENTITY(1,1) NOT NULL,
+	[Name] [nvarchar](255) NOT NULL,
+	[DepartmentID] [int] NULL,
+	[PlatformRequirements] [nvarchar](max) NULL,
+PRIMARY KEY CLUSTERED 
+(
+	[PlatformID] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[Roles]    Script Date: 05.02.2024 17:56:37 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[Roles](
+	[RoleID] [int] IDENTITY(1,1) NOT NULL,
+	[RoleName] [nvarchar](255) NOT NULL,
+	[Salary] [decimal](10, 2) NOT NULL,
+	[TechnologyStack] [nvarchar](max) NULL,
+	[Responsibilities] [nvarchar](max) NULL,
+PRIMARY KEY CLUSTERED 
+(
+	[RoleID] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[TaskCategories]    Script Date: 05.02.2024 17:56:37 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[TaskCategories](
+	[CategoryID] [int] IDENTITY(1,1) NOT NULL,
+	[CategoryName] [nvarchar](255) NOT NULL,
+	[CategoryDescription] [nvarchar](255) NOT NULL,
+PRIMARY KEY CLUSTERED 
+(
+	[CategoryID] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[TaskHistory]    Script Date: 05.02.2024 17:56:37 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[TaskHistory](
+	[HistoryID] [int] IDENTITY(1,1) NOT NULL,
+	[TaskID] [int] NOT NULL,
+	[ChangedOn] [datetime] NOT NULL,
+	[ChangedBy] [int] NULL,
+	[ChangeDescription] [nvarchar](max) NULL,
+PRIMARY KEY CLUSTERED 
+(
+	[HistoryID] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[TaskPriorities]    Script Date: 05.02.2024 17:56:37 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[TaskPriorities](
+	[PriorityID] [int] IDENTITY(1,1) NOT NULL,
+	[PriorityName] [nvarchar](255) NOT NULL,
+	[PriorityLevel] [int] NOT NULL,
+PRIMARY KEY CLUSTERED 
+(
+	[PriorityID] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[Tasks]    Script Date: 05.02.2024 17:56:37 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[Tasks](
+	[TaskID] [int] IDENTITY(1,1) NOT NULL,
+	[Title] [nvarchar](255) NOT NULL,
+	[Description] [nvarchar](max) NULL,
+	[Status] [nvarchar](255) NOT NULL,
+	[CategoryID] [int] NULL,
+	[PriorityID] [int] NULL,
+	[DepartmentID] [int] NULL,
+	[AssignedToEmployeeID] [int] NULL,
+	[OrderID] [int] NULL,
+PRIMARY KEY CLUSTERED 
+(
+	[TaskID] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
+GO
+SET IDENTITY_INSERT [dbo].[Departments] ON 
+GO
+INSERT [dbo].[Departments] ([DepartmentID], [Name], [Description]) VALUES (1, N'Разработка', N'Отдел программной разработки')
+GO
+INSERT [dbo].[Departments] ([DepartmentID], [Name], [Description]) VALUES (2, N'Маркетинг', N'Отдел маркетинга и рекламы')
+GO
+INSERT [dbo].[Departments] ([DepartmentID], [Name], [Description]) VALUES (3, N'Бухгалтерия', N'Отдел финансового учета')
+GO
+INSERT [dbo].[Departments] ([DepartmentID], [Name], [Description]) VALUES (4, N'Разработка', N'Отдел программной разработки')
+GO
+INSERT [dbo].[Departments] ([DepartmentID], [Name], [Description]) VALUES (5, N'Маркетинг', N'Отдел маркетинга и рекламы')
+GO
+INSERT [dbo].[Departments] ([DepartmentID], [Name], [Description]) VALUES (6, N'Бухгалтерия', N'Отдел финансового учета')
+GO
+SET IDENTITY_INSERT [dbo].[Departments] OFF
+GO
+SET IDENTITY_INSERT [dbo].[Employees] ON 
+GO
+INSERT [dbo].[Employees] ([EmployeeID], [FullName], [DepartmentID], [RoleID], [Passport], [Phone], [Password], [Login]) VALUES (1, N'Иванов Иван Иванович', 1, 1, N'4501', N'+79031234567', N'123', N'ivanov')
+GO
+INSERT [dbo].[Employees] ([EmployeeID], [FullName], [DepartmentID], [RoleID], [Passport], [Phone], [Password], [Login]) VALUES (2, N'Петров Петр Петрович', 2, 2, N'4502', N'+79031234568', N'456', N'petrov')
+GO
+INSERT [dbo].[Employees] ([EmployeeID], [FullName], [DepartmentID], [RoleID], [Passport], [Phone], [Password], [Login]) VALUES (3, N'Сидоров Сидор Сидорович', 3, 3, N'4503', N'+79031234569', N'789', N'sidorov')
+GO
+INSERT [dbo].[Employees] ([EmployeeID], [FullName], [DepartmentID], [RoleID], [Passport], [Phone], [Password], [Login]) VALUES (4, N'Иванов Иван Иванович', 1, 1, N'4501', N'+79031234567', N'123', N'ivanov')
+GO
+INSERT [dbo].[Employees] ([EmployeeID], [FullName], [DepartmentID], [RoleID], [Passport], [Phone], [Password], [Login]) VALUES (5, N'Петров Петр Петрович', 2, 2, N'4502', N'+79031234568', N'456', N'petrov')
+GO
+INSERT [dbo].[Employees] ([EmployeeID], [FullName], [DepartmentID], [RoleID], [Passport], [Phone], [Password], [Login]) VALUES (6, N'Сидоров Сидор Сидорович', 3, 3, N'4503', N'+79031234569', N'789', N'sidorov')
+GO
+INSERT [dbo].[Employees] ([EmployeeID], [FullName], [DepartmentID], [RoleID], [Passport], [Phone], [Password], [Login]) VALUES (7, N'123', 2, 2, NULL, N'123', N'123', N'123')
+GO
+INSERT [dbo].[Employees] ([EmployeeID], [FullName], [DepartmentID], [RoleID], [Passport], [Phone], [Password], [Login]) VALUES (8, N'9', 1, 2, NULL, N'9', N'9', N'9')
+GO
+INSERT [dbo].[Employees] ([EmployeeID], [FullName], [DepartmentID], [RoleID], [Passport], [Phone], [Password], [Login]) VALUES (9, N'123', 2, 1, N'123', N'123', N'123', N'123')
+GO
+INSERT [dbo].[Employees] ([EmployeeID], [FullName], [DepartmentID], [RoleID], [Passport], [Phone], [Password], [Login]) VALUES (10, N'1', 1, 1, NULL, N'1', N'1', N'1')
+GO
+INSERT [dbo].[Employees] ([EmployeeID], [FullName], [DepartmentID], [RoleID], [Passport], [Phone], [Password], [Login]) VALUES (11, N'8', 1, 2, NULL, N'8', N'8', N'8')
+GO
+INSERT [dbo].[Employees] ([EmployeeID], [FullName], [DepartmentID], [RoleID], [Passport], [Phone], [Password], [Login]) VALUES (12, N'Лох', 1, 1, NULL, N'ацца', N'ацац', N'Никита')
+GO
+INSERT [dbo].[Employees] ([EmployeeID], [FullName], [DepartmentID], [RoleID], [Passport], [Phone], [Password], [Login]) VALUES (13, N'цаца', 1, 1, NULL, N'а', N'цац', N'аца')
+GO
+INSERT [dbo].[Employees] ([EmployeeID], [FullName], [DepartmentID], [RoleID], [Passport], [Phone], [Password], [Login]) VALUES (14, N'123456', 3, 3, NULL, N'123456', N'123456', N'123456')
+GO
+INSERT [dbo].[Employees] ([EmployeeID], [FullName], [DepartmentID], [RoleID], [Passport], [Phone], [Password], [Login]) VALUES (15, N'15', 1, 2, NULL, N'15', N'15', N'15')
+GO
+SET IDENTITY_INSERT [dbo].[Employees] OFF
+GO
+SET IDENTITY_INSERT [dbo].[Orders] ON 
+GO
+INSERT [dbo].[Orders] ([OrderID], [Description], [PlatformID], [Deadline], [DateOfRequest]) VALUES (22, N'Разработка корпоративного сайта', 1, N'2023-12-31', N'2023-01-01')
+GO
+INSERT [dbo].[Orders] ([OrderID], [Description], [PlatformID], [Deadline], [DateOfRequest]) VALUES (23, N'Создание мобильного приложения для заказа товаров', 2, N'2023-10-20', N'2023-01-02')
+GO
+INSERT [dbo].[Orders] ([OrderID], [Description], [PlatformID], [Deadline], [DateOfRequest]) VALUES (24, N'Разработка ПО для учета рабочего времени', 3, N'2023-08-15', N'2023-01-03')
+GO
+SET IDENTITY_INSERT [dbo].[Orders] OFF
+GO
+SET IDENTITY_INSERT [dbo].[Platforms] ON 
+GO
+INSERT [dbo].[Platforms] ([PlatformID], [Name], [DepartmentID], [PlatformRequirements]) VALUES (1, N'Web-платформа', 1, N'Требования к web-платформе')
+GO
+INSERT [dbo].[Platforms] ([PlatformID], [Name], [DepartmentID], [PlatformRequirements]) VALUES (2, N'Мобильная платформа', 1, N'Требования к мобильной платформе')
+GO
+INSERT [dbo].[Platforms] ([PlatformID], [Name], [DepartmentID], [PlatformRequirements]) VALUES (3, N'Desktop-платформа', 1, N'Требования к desktop-платформе')
+GO
+INSERT [dbo].[Platforms] ([PlatformID], [Name], [DepartmentID], [PlatformRequirements]) VALUES (4, N'Web-платформа', 1, N'Требования к web-платформе')
+GO
+INSERT [dbo].[Platforms] ([PlatformID], [Name], [DepartmentID], [PlatformRequirements]) VALUES (5, N'Мобильная платформа', 1, N'Требования к мобильной платформе')
+GO
+INSERT [dbo].[Platforms] ([PlatformID], [Name], [DepartmentID], [PlatformRequirements]) VALUES (6, N'Desktop-платформа', 1, N'Требования к desktop-платформе')
+GO
+INSERT [dbo].[Platforms] ([PlatformID], [Name], [DepartmentID], [PlatformRequirements]) VALUES (7, N'Ауе', 1, NULL)
+GO
+SET IDENTITY_INSERT [dbo].[Platforms] OFF
+GO
+SET IDENTITY_INSERT [dbo].[Roles] ON 
+GO
+INSERT [dbo].[Roles] ([RoleID], [RoleName], [Salary], [TechnologyStack], [Responsibilities]) VALUES (1, N'Разработчик', CAST(150000.00 AS Decimal(10, 2)), N'C#, .NET', N'Разработка и поддержка ПО')
+GO
+INSERT [dbo].[Roles] ([RoleID], [RoleName], [Salary], [TechnologyStack], [Responsibilities]) VALUES (2, N'Менеджер', CAST(200000.00 AS Decimal(10, 2)), N'MS Office, CRM', N'Управление проектами и командами')
+GO
+INSERT [dbo].[Roles] ([RoleID], [RoleName], [Salary], [TechnologyStack], [Responsibilities]) VALUES (3, N'Тестировщик', CAST(120000.00 AS Decimal(10, 2)), N'Postman, Selenium', N'Тестирование программного обеспечения')
+GO
+INSERT [dbo].[Roles] ([RoleID], [RoleName], [Salary], [TechnologyStack], [Responsibilities]) VALUES (4, N'Разработчик', CAST(150000.00 AS Decimal(10, 2)), N'C#, .NET', N'Разработка и поддержка ПО')
+GO
+INSERT [dbo].[Roles] ([RoleID], [RoleName], [Salary], [TechnologyStack], [Responsibilities]) VALUES (5, N'Менеджер', CAST(200000.00 AS Decimal(10, 2)), N'MS Office, CRM', N'Управление проектами и командами')
+GO
+INSERT [dbo].[Roles] ([RoleID], [RoleName], [Salary], [TechnologyStack], [Responsibilities]) VALUES (6, N'Тестировщик', CAST(120000.00 AS Decimal(10, 2)), N'Postman, Selenium', N'Тестирование программного обеспечения')
+GO
+SET IDENTITY_INSERT [dbo].[Roles] OFF
+GO
+SET IDENTITY_INSERT [dbo].[TaskCategories] ON 
+GO
+INSERT [dbo].[TaskCategories] ([CategoryID], [CategoryName], [CategoryDescription]) VALUES (1, N'Исправление ошибок', N'Категория для задач по исправлению ошибок')
+GO
+INSERT [dbo].[TaskCategories] ([CategoryID], [CategoryName], [CategoryDescription]) VALUES (2, N'Разработка нового функционала', N'Категория для задач по добавлению новых функций')
+GO
+INSERT [dbo].[TaskCategories] ([CategoryID], [CategoryName], [CategoryDescription]) VALUES (3, N'Оптимизация', N'Категория для задач по оптимизации существующего ПО')
+GO
+INSERT [dbo].[TaskCategories] ([CategoryID], [CategoryName], [CategoryDescription]) VALUES (4, N'Исправление ошибок', N'Категория для задач по исправлению ошибок')
+GO
+INSERT [dbo].[TaskCategories] ([CategoryID], [CategoryName], [CategoryDescription]) VALUES (5, N'Разработка нового функционала', N'Категория для задач по добавлению новых функций')
+GO
+INSERT [dbo].[TaskCategories] ([CategoryID], [CategoryName], [CategoryDescription]) VALUES (6, N'Оптимизация', N'Категория для задач по оптимизации существующего ПО')
+GO
+SET IDENTITY_INSERT [dbo].[TaskCategories] OFF
+GO
+SET IDENTITY_INSERT [dbo].[TaskPriorities] ON 
+GO
+INSERT [dbo].[TaskPriorities] ([PriorityID], [PriorityName], [PriorityLevel]) VALUES (1, N'Высокий', 1)
+GO
+INSERT [dbo].[TaskPriorities] ([PriorityID], [PriorityName], [PriorityLevel]) VALUES (2, N'Средний', 2)
+GO
+INSERT [dbo].[TaskPriorities] ([PriorityID], [PriorityName], [PriorityLevel]) VALUES (3, N'Низкий', 3)
+GO
+INSERT [dbo].[TaskPriorities] ([PriorityID], [PriorityName], [PriorityLevel]) VALUES (4, N'Высокий', 1)
+GO
+INSERT [dbo].[TaskPriorities] ([PriorityID], [PriorityName], [PriorityLevel]) VALUES (5, N'Средний', 2)
+GO
+INSERT [dbo].[TaskPriorities] ([PriorityID], [PriorityName], [PriorityLevel]) VALUES (6, N'Низкий', 3)
+GO
+SET IDENTITY_INSERT [dbo].[TaskPriorities] OFF
+GO
+SET IDENTITY_INSERT [dbo].[Tasks] ON 
+GO
+INSERT [dbo].[Tasks] ([TaskID], [Title], [Description], [Status], [CategoryID], [PriorityID], [DepartmentID], [AssignedToEmployeeID], [OrderID]) VALUES (10, N'1', N'1', N'success', 5, 2, 1, 1, 24)
+GO
+INSERT [dbo].[Tasks] ([TaskID], [Title], [Description], [Status], [CategoryID], [PriorityID], [DepartmentID], [AssignedToEmployeeID], [OrderID]) VALUES (11, N'fwfwf', N'fwfw', N'success', 3, 1, 1, 1, 22)
+GO
+SET IDENTITY_INSERT [dbo].[Tasks] OFF
+GO
+ALTER TABLE [dbo].[Employees]  WITH CHECK ADD FOREIGN KEY([DepartmentID])
+REFERENCES [dbo].[Departments] ([DepartmentID])
+GO
+ALTER TABLE [dbo].[Employees]  WITH CHECK ADD FOREIGN KEY([RoleID])
+REFERENCES [dbo].[Roles] ([RoleID])
+GO
+ALTER TABLE [dbo].[Orders]  WITH CHECK ADD FOREIGN KEY([PlatformID])
+REFERENCES [dbo].[Platforms] ([PlatformID])
+GO
+ALTER TABLE [dbo].[Platforms]  WITH CHECK ADD FOREIGN KEY([DepartmentID])
+REFERENCES [dbo].[Departments] ([DepartmentID])
+GO
+ALTER TABLE [dbo].[TaskHistory]  WITH CHECK ADD FOREIGN KEY([ChangedBy])
+REFERENCES [dbo].[Employees] ([EmployeeID])
+GO
+ALTER TABLE [dbo].[TaskHistory]  WITH CHECK ADD FOREIGN KEY([TaskID])
+REFERENCES [dbo].[Tasks] ([TaskID])
+GO
+ALTER TABLE [dbo].[Tasks]  WITH CHECK ADD FOREIGN KEY([AssignedToEmployeeID])
+REFERENCES [dbo].[Employees] ([EmployeeID])
+GO
+ALTER TABLE [dbo].[Tasks]  WITH CHECK ADD FOREIGN KEY([CategoryID])
+REFERENCES [dbo].[TaskCategories] ([CategoryID])
+GO
+ALTER TABLE [dbo].[Tasks]  WITH CHECK ADD FOREIGN KEY([DepartmentID])
+REFERENCES [dbo].[Departments] ([DepartmentID])
+GO
+ALTER TABLE [dbo].[Tasks]  WITH CHECK ADD FOREIGN KEY([OrderID])
+REFERENCES [dbo].[Orders] ([OrderID])
+GO
+ALTER TABLE [dbo].[Tasks]  WITH CHECK ADD FOREIGN KEY([PriorityID])
+REFERENCES [dbo].[TaskPriorities] ([PriorityID])
+GO
+USE [master]
+GO
+ALTER DATABASE [DemoExams] SET  READ_WRITE 
+GO
